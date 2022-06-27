@@ -3,7 +3,7 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 // Connection
-mongoose.connection("mongodb://localhost/nodejs-learning-test-db")
+mongoose.connect("mongodb://localhost/nodejs-learning-test-db")
 
 // Post Schema
 const PostSchema = new Schema({
@@ -19,3 +19,4 @@ const PostSchema = new Schema({
 // Post Model
 const Post = mongoose.model("Post", PostSchema)
 
+module.exports = Post
