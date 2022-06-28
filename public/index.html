@@ -11,7 +11,7 @@
     
     <div class="form">
         
-        <form action="/posts" method="POST">
+        <form action="/posts" method="POST" enctype="multipart/form-data">
             <h2>Register Data Form</h2>
             <div>
                 <input name="title" type="text" placeholder="Title">
@@ -23,7 +23,13 @@
                 <input name="author" type="text" placeholder="Author">
             </div>
             <div>
+                <input name="image" type="file" >
+            </div>
+            <div>
                 <button type="submit">Veritabanına Kaydet</button>
+            </div>
+            <div>
+                Verilere ulaşmak için: <a href="/details">veri sayfasına git</a>
             </div>
         </form>
     </div>

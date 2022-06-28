@@ -48,3 +48,21 @@ button{
     font-weight: bold;
     border: none
 }
+
+/* data list */
+.data{
+    width: 650px;
+    margin: 0px auto;
+    zoom: 75%;
+}
+.data img{
+    width: 100%;
+    border-radius: 1rem;
+}
+
+.data a{
+    font-size: 3rem;
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}

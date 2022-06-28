@@ -10,6 +10,7 @@ const PostSchema = new Schema({
     title: String,
     description: String,
     author: String,
+    image: String,
     time: {
         type: Date,
         default: Date.now()

@@ -4,12 +4,14 @@
   "description": "Çeşitli NodeJS uygulamalarının yer alacağı proje",
   "main": "app.js",
   "scripts": {
-    "run": "npx nodemon app.js"
+    "start": "npx nodemon app.js"
   },
   "author": "Umut Topkaya - tw@topkayadev | git@utopkaya",
   "license": "ISC",
   "dependencies": {
+    "ejs": "^3.1.8",
     "express": "^4.18.1",
+    "express-fileupload": "^1.4.0",
     "mongoose": "^6.4.0",
     "nodemon": "^2.0.18"
   }
