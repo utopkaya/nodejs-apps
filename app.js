@@ -5,7 +5,9 @@ const app = express();
 const Post = require("./Models/PostModel");
 const fileUpload = require("express-fileupload");
 const fs = require("fs");
-const ejs = require('ejs')
+const ejs = require("ejs");
+var bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
 // middleware
 app.use(express.urlencoded({ extended: true }));
@@ -16,7 +18,6 @@ app.use(fileUpload());
 
 // template engine
 app.set("view engine", "ejs");
-
 
 app.get("", (req, res) => {
   // create data
@@ -30,22 +31,13 @@ app.get("", (req, res) => {
 
 // UPLOAD IMAGE and POST
 app.post("/posts", (req, res) => {
-  // console.log(req.body);
-
-  // create data for mongodb database
-
-  /* if(!req.files){
-        console.log("dosya bulunamadi");
-    } console.log(req.files.image.name);
-    
-    res.redirect("/") */
-
   // sync fonk olmalarinin sebebi -> gorsel yuklenmeden klasorun olusmasi gerekiyor
   const uploadDir = "public/uploads";
   if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir);
   }
 
+  // Image Upload Process - Resim Yukleme Islemi
   let uploadedImage = req.files.image; // gorsele ait tum bilgiler
   let uploadPath = __dirname + "/public/uploads/" + uploadedImage.name; // gorselin yuklenecegi server'daki dosya yolu
   uploadedImage.mv(uploadPath, async () => {
@@ -56,20 +48,19 @@ app.post("/posts", (req, res) => {
   });
 
   res.redirect("/details");
-
 });
 
-app.get('/details', async (req,res) => {
+app.get("/details", async (req, res) => {
+  const posts = await Post.find({}).sort("-time");
+  res.render("details", { posts: posts });
+});
 
-    const posts = await Post.find({}).sort('-time')
+// get page id
+app.get('/details/:id', async (req,res) => {
+  const post = await Post.findById(req.params.id);
+  
+  res.render("post", {post:post})
 
-    res.render('details', {posts:posts})
-
-})
-
-app.get('/details/:id', async (req, res) => {
-    const post = await Post.findById(req.params.id)
-    res.render('post', {post})
 })
 
 app.listen(3000, () => {

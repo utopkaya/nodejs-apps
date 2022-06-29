@@ -3,7 +3,10 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 // Connection
-mongoose.connect("mongodb://localhost/nodejs-learning-test-db")
+mongoose.connect("mongodb://localhost/nodejs-learning-test-db", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
 
 // Post Schema
 const PostSchema = new Schema({
