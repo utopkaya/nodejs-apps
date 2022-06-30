@@ -1,12 +1,11 @@
 // Bu projede basit CRUD işlemleri gerçekleştirilecektir.
-
+const port = 3000
 const express = require("express");
 const app = express();
 const Post = require("./Models/PostModel");
 const fileUpload = require("express-fileupload");
 const fs = require("fs");
 const ejs = require("ejs");
-var bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 // middleware
@@ -52,17 +51,25 @@ app.post("/posts", (req, res) => {
 
 app.get("/details", async (req, res) => {
   const posts = await Post.find({}).sort("-time");
-  res.render("details", { posts: posts });
+  res.render("details", { posts });
 });
 
 // get page id
 app.get('/details/:id', async (req,res) => {
+
   const post = await Post.findById(req.params.id);
+  
+  // res.render("post", {post:post})
+  if(!mongoose.Types.ObjectId.isValid(post)){
+    console.log("bilgiler alinamaz");
+  }
   
   res.render("post", {post:post})
 
 })
 
-app.listen(3000, () => {
-  console.log("sunucu 3000 portunda çalışıyor");
+
+
+app.listen(port, () => {
+  console.log(`sunucu http://localhost:${port} çalışıyor`);
 });
